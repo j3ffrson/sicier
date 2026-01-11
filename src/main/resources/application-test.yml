@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: sicier
+  flyway:
+    enabled: false
+  profiles:
+    active: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true

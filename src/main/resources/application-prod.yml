@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: sicier
+  profiles:
+    active: prod
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    url: ${DATASOURCE_URL}
