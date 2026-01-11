@@ -1,8 +1,8 @@
 spring:
   application:
     name: sicier
-  profiles:
-    active: prod
+  flyway:
+    enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ${DATASOURCE_USERNAME}

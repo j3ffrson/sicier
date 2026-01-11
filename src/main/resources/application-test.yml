@@ -3,8 +3,6 @@ spring:
     name: sicier
   flyway:
     enabled: false
-  profiles:
-    active: test
   jpa:
     hibernate:
       ddl-auto: create-drop

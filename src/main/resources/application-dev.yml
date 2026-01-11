@@ -3,13 +3,11 @@ spring:
     name: sicier
   flyway:
     enabled: false
-  profiles:
-    active: dev
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
-    url: jdbc:postgresql://localhost:5432/sicier-dev
+    url: ${DATASOURCE_URL}
   jpa:
     hibernate:
       ddl-auto: create
