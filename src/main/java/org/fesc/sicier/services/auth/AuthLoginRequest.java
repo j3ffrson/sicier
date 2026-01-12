@@ -1,4 +1,4 @@
-package org.fesc.sicier.services.dtos.auth;
+package org.fesc.sicier.services.auth;
 
 import jakarta.validation.constraints.NotBlank;
 

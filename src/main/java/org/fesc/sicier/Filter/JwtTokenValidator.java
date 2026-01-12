@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.fesc.sicier.configurations.AuthEntryPoint;
+import org.fesc.sicier.services.dtos.exceptions.ErrorsDto;
 import org.fesc.sicier.utils.JwtUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationServiceException;
