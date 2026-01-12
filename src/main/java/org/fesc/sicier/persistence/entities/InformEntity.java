@@ -5,7 +5,7 @@ import lombok.*;
 import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,17 +26,19 @@ public class InformEntity {
     private String title;
     private String description;
     private String status;
+
     @Column(name = "creation_date")
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<DestinationInformEntity> destinations= new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "emisor_id")
     private UserEntity UserEmisor;
 
-    @OneToMany
-    private List<DestinationInformEntity> destinationInformEntity= new ArrayList<>();
-
-    @ManyToOne(optional = false)
-    private AreaEntity areaEntities;
+    @ManyToOne
+    @JoinColumn(name = "areas_emisor_id")
+    private AreaEntity areasEmisor;
 
 }
