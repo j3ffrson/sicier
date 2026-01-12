@@ -10,4 +10,4 @@ spring:
     url: ${DATASOURCE_URL}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
