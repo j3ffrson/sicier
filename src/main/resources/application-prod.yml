@@ -8,3 +8,10 @@ spring:
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
     url: ${DATASOURCE_URL}
+
+  security:
+    jwt:
+      private:
+        key: ${JWT_PRIVATE_KEY}
+    user:
+      generator: ${JWT_USER_GENERATOR:sicierDev}
