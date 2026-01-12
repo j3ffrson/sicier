@@ -11,10 +11,3 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-
-  security:
-    jwt:
-      private:
-        key: ${JWT_PRIVATE_KEY}
-    user:
-      generator: ${JWT_USER_GENERATOR:sicierDev}
