@@ -3,11 +3,8 @@ package org.fesc.sicier.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.fesc.sicier.persistence.entities.security.AreaEntity;
-import org.fesc.sicier.persistence.entities.security.UserEntity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +21,7 @@ public class DestinationInformEntity {
     private Long id;
 
     @OneToOne
-    private InformEntity inform_id;
+    private InformEntity inform;
 
     private String status;
 
@@ -32,11 +29,11 @@ public class DestinationInformEntity {
     private LocalDateTime receptionDate;
 
     @Column(name = "date_reading")
-    private LocalDateTime date_reading;
+    private LocalDateTime dateReading;
 
     @ManyToOne
     @JoinColumn(name = "area_destination_id")
-    private AreaEntity areaDestino;
+    private AreaEntity areaDestination;
 
 
 

@@ -25,7 +25,7 @@ public class AreaEntity {
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
-    private Boolean Active;
+    private Boolean active;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<UserEntity> users= new ArrayList<>();

@@ -21,7 +21,7 @@ public class HistoryStateEntity {
     @Column(name = "inform_id")
     private int informId;
     @Enumerated(EnumType.STRING)
-    private States state;
+    private InformStates state;
     @Column(name = "user_id")
     private int userId;
     private LocalDateTime date;

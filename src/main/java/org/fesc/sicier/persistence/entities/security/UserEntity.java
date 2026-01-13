@@ -27,7 +27,7 @@ public class UserEntity {
     @Column(nullable = false)
     private Long phone;
     @Column(nullable = false)
-    private Long identifer;
+    private Long identifier;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false,name = "institutional_email")

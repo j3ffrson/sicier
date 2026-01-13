@@ -1,6 +1,6 @@
 package org.fesc.sicier.persistence.entities;
 
-public enum States {
+public enum InformStates {
 
     BORRADOR,
     ENVIADO,

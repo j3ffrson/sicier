@@ -44,7 +44,7 @@ public class CommandInit {
                     .firstName("Jefferson")
                     .lastName("Chaustre")
                     .username("jeffer")
-                    .identifer(1092524589L)
+                    .identifier(1092524589L)
                     .phone(3166846822L)
                     .institutionalEmail("chaustrejefferson@gmail.com")
                     .password(passwordEncoder.encode("milluh123"))
@@ -57,7 +57,7 @@ public class CommandInit {
 
             AreaEntity area= AreaEntity.builder()
                     .name("Resctoria")
-                    .Active(true)
+                    .active(true)
                     .users(Collections.emptyList())
                     .description("Area de Rectoria")
                     .build();

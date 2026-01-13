@@ -98,7 +98,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .username(username)
                 .institutionalEmail(email)
                 .phone(phone)
-                .identifer(identifer)
+                .identifier(identifer)
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .roles(roleEntities)
@@ -141,7 +141,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userUpdate.setLastName(lastName);
         userUpdate.setInstitutionalEmail(email);
         userUpdate.setPhone(phone);
-        userUpdate.setIdentifer(identifer);
+        userUpdate.setIdentifier(identifer);
         userUpdate.setUsername(username);
         userUpdate.setPassword(passwordEncoder.encode(password));
         userUpdate.setRoles(roleEntities);
