@@ -20,13 +20,14 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Long id;
-
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
     private Long phone;
+    @Column(nullable = false)
+    private Long identifer;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false,name = "institutional_email")
@@ -47,7 +48,7 @@ public class UserEntity {
     private boolean isCredentialsNonExpired;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "area_id", nullable = false)
+    @JoinColumn(name = "area_id")
     private AreaEntity areaEntities;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 public record AuthCreateUserRequest(
-        @NotBlank String name,
+        @NotBlank String firstName,
         @NotBlank String lastName,
-        @NotBlank @Email String email,
+        @NotBlank @Email String institutionalEmail,
         @Positive Long identifier,
         @Positive Long phone,
         @NotBlank String username,

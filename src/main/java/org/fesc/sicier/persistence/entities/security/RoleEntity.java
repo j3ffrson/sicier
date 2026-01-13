@@ -20,9 +20,6 @@ public class RoleEntity {
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
-
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
     private Roles roles;
