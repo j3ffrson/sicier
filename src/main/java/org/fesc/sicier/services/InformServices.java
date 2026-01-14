@@ -8,10 +8,12 @@ import java.util.List;
 public interface InformServices {
 
     List<InformDto> getAllInform();
-    InformDto getInform(Long id);
-    InformDto createInform(CreateInformRequest informRequest);
-    InformDto updateInformComplete(CreateInformRequest informRequest);
-    InformDto changeGlobalState(CreateInformRequest informRequest);
+    List<InformDto> getAllInformByUsers(String user);
+    List<InformDto> getAllInformByAreas(String area);
+    InformDto getInformById(Long id);
+    InformDto getInformByTitle(String title);
+    InformDto createInformDraft();
+    InformDto CreateInformComplete(CreateInformRequest informRequest,Long id);
     void deleteInform(Long id);
 
 

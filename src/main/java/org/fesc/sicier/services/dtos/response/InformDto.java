@@ -1,7 +1,6 @@
 package org.fesc.sicier.services.dtos.response;
 
 import lombok.Data;
-import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 
@@ -16,7 +15,7 @@ public class InformDto {
     private String status;
     private String creationDate;
     private List<DestinationInformDto> destinations= new ArrayList<>();
-    private UserEntity UserEmisor;
-    private AreaEntity areasEmisor;
+    private UserDto UserEmisor;
+    private AreaDto areasEmisor;
 
 }

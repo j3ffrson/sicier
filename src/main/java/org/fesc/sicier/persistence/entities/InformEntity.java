@@ -1,5 +1,6 @@
 package org.fesc.sicier.persistence.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.fesc.sicier.persistence.entities.security.AreaEntity;
@@ -34,11 +35,11 @@ public class InformEntity {
     private List<DestinationInformEntity> destinations= new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "emisor_id")
-    private UserEntity UserEmisor;
+    @JoinColumn(name = "emisor_id",nullable = true)
+    private UserEntity userEmisor;
 
-    @ManyToOne
-    @JoinColumn(name = "areas_emisor_id")
+    @ManyToOne()
+    @JoinColumn(name = "areas_emisor_id",nullable = true)
     private AreaEntity areasEmisor;
 
 }

@@ -1,4 +1,4 @@
-package org.fesc.sicier.Filter;
+package org.fesc.sicier.configurations.Filter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
