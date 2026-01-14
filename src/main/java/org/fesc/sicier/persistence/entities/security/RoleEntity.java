@@ -22,11 +22,11 @@ public class RoleEntity {
 
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
-    private Roles roles;
+    private ERoles rolesName;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "role_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private Set<PermissionEntity> listaPermisos = new HashSet<>();
+    private Set<PermissionEntity> listPermission = new HashSet<>();
 }

@@ -2,8 +2,11 @@ package org.fesc.sicier.services.implementations;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.fesc.sicier.persistence.entities.security.AreaEntity;
+import org.fesc.sicier.persistence.entities.security.ERoles;
 import org.fesc.sicier.persistence.entities.security.RoleEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
+import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.RoleRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
 import org.fesc.sicier.services.auth.AuthCreateUserRequest;
@@ -33,6 +36,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final AreaRepository areaRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
@@ -43,10 +47,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<SimpleGrantedAuthority> authorityList= new ArrayList<>();
 
         usuario.getRoles().forEach(role->
-                authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoles().name()))));
+                authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRolesName().name()))));
 
         usuario.getRoles().stream()
-                .flatMap(role->role.getListaPermisos().stream())
+                .flatMap(role->role.getListPermission().stream())
                 .forEach(permission->authorityList.add(new SimpleGrantedAuthority(permission.getName())));
 
         return new User(usuario.getUsername(),usuario.getPassword(),authorityList);
@@ -85,23 +89,30 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String lastName= createUserRequest.lastName();
         String email= createUserRequest.institutionalEmail();
         Long phone= createUserRequest.phone();
-        Long identifer= createUserRequest.identifier();
+        Long identifier= createUserRequest.identifier();
         String username= createUserRequest.username();
         String password= createUserRequest.password();
+        String areaName= createUserRequest.area();
         List<String> roleList= createUserRequest.roleRequest().roleList();
 
-        Set<RoleEntity> roleEntities= roleRepository.findRoleEntitiesByRolesIn(roleList).stream().collect(Collectors.toSet());
+        List<ERoles> roles = roleList.stream()
+                .map(ERoles::valueOf)
+                .collect(Collectors.toList());
 
+        Set<RoleEntity> roleEntities= roleRepository.findRoleEntitiesByRolesNameIn(roles)
+                .stream().collect(Collectors.toSet());
+        AreaEntity areaEntity= areaRepository.findByName(areaName).orElseThrow();
         UserEntity user=UserEntity.builder()
                 .firstName(name)
                 .lastName(lastName)
                 .username(username)
                 .institutionalEmail(email)
                 .phone(phone)
-                .identifier(identifer)
+                .identifier(identifier)
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .roles(roleEntities)
+                .areaEntities(areaEntity)
                 .isEnabled(true)
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
@@ -112,15 +123,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<SimpleGrantedAuthority> authorityList= new ArrayList<>();
 
         usuarioEntity.getRoles().stream().forEach(role->
-                authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoles().name()))));
+                authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRolesName().name()))));
 
-        usuarioEntity.getRoles().stream().flatMap(role->role.getListaPermisos().stream())
+        usuarioEntity.getRoles().stream().flatMap(role->role.getListPermission().stream())
                 .forEach(permission->authorityList.add(new SimpleGrantedAuthority(permission.getName())));
 
         Authentication authentication= new UsernamePasswordAuthenticationToken(usuarioEntity,null,authorityList);
         String accessToken= jwtUtil.generateToken(authentication);
-        AuthResponse authResponse= new AuthResponse(username,"user created",accessToken,true);
-        return authResponse;
+        return new AuthResponse(username,"user created",accessToken,true);
 
     }
     public AuthResponse updateUser(@Valid AuthCreateUserRequest createUserRequest,long id){
@@ -129,19 +139,23 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String lastName= createUserRequest.lastName();
         String email= createUserRequest.institutionalEmail();
         Long phone= createUserRequest.phone();
-        Long identifer= createUserRequest.identifier();
+        Long identifier= createUserRequest.identifier();
         String username= createUserRequest.username();
         String password= createUserRequest.password();
         List<String> roleList= createUserRequest.roleRequest().roleList();
 
-        Set<RoleEntity> roleEntities= roleRepository.findRoleEntitiesByRolesIn(roleList).stream().collect(Collectors.toSet());
+        List<ERoles> roles = roleList.stream()
+                .map(ERoles::valueOf)
+                .collect(Collectors.toList());
+
+        Set<RoleEntity> roleEntities= roleRepository.findRoleEntitiesByRolesNameIn(roles).stream().collect(Collectors.toSet());
         UserEntity userUpdate= userRepository.findById(id).orElse(null);
 
         userUpdate.setFirstName(name);
         userUpdate.setLastName(lastName);
         userUpdate.setInstitutionalEmail(email);
         userUpdate.setPhone(phone);
-        userUpdate.setIdentifier(identifer);
+        userUpdate.setIdentifier(identifier);
         userUpdate.setUsername(username);
         userUpdate.setPassword(passwordEncoder.encode(password));
         userUpdate.setRoles(roleEntities);
@@ -151,9 +165,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<SimpleGrantedAuthority> authorityList= new ArrayList<>();
 
         usuarioEntity.getRoles().stream().forEach(role->
-                authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoles().name()))));
+                authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRolesName().name()))));
 
-        usuarioEntity.getRoles().stream().flatMap(role->role.getListaPermisos().stream())
+        usuarioEntity.getRoles().stream().flatMap(role->role.getListPermission().stream())
                 .forEach(permission->authorityList.add(new SimpleGrantedAuthority(permission.getName())));
 
         Authentication authentication= new UsernamePasswordAuthenticationToken(usuarioEntity,null,authorityList);

@@ -40,7 +40,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 
                 DecodedJWT decodedJWT = jwtUtil.veriffyToken(token);
                 String username = jwtUtil.getUsernameFromToken(decodedJWT);
-                String authorities = jwtUtil.getSpecificClaim(decodedJWT, "permisos").asString();
+                String authorities = jwtUtil.getSpecificClaim(decodedJWT, "permissions").asString();
 
                 Authentication auth = new UsernamePasswordAuthenticationToken(
                         username, null,

@@ -65,6 +65,7 @@ public class InformServicesImpl implements InformServices {
 
         InformEntity informEntity= informMapper.requestToInformEntity(informRequest);
         informEntity.setId(id);
+        informEntity.setCreationDate(LocalDateTime.now());
         if(informRequest.areaName().isBlank()){
             UserEntity userEntity= userRepository.findByFirstName(informRequest.userName()).orElseThrow();
             informEntity.setUserEmisor(userEntity);

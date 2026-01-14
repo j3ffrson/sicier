@@ -13,5 +13,6 @@ public record AuthCreateUserRequest(
         @Positive Long phone,
         @NotBlank String username,
         @NotBlank String password,
+        @NotBlank String area,
         @Valid AuthCreateRoleRequest roleRequest
 ){}

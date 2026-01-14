@@ -12,6 +12,8 @@ import org.fesc.sicier.services.dtos.response.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -25,5 +27,9 @@ public interface InformMapper {
     UserDto toUserDto(UserEntity userEntity);
     @Mapping(target = "destinations",ignore = true)
     InformEntity requestToInformEntity(CreateInformRequest createInformRequest);
+
+    default String mapCreationDate(LocalDateTime creationDate){
+        return creationDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
+    }
 
 }

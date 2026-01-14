@@ -1,11 +1,10 @@
 package org.fesc.sicier.persistence.entities.security;
 
-public enum Roles {
+public enum ERoles {
 
     ADMIN,
-    EMISOR,
-    REVISOR,
     RECTOR,
-    CONSULTA
+    FUNC,
+    LECTOR
 
 }

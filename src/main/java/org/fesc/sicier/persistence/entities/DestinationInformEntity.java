@@ -22,7 +22,6 @@ public class DestinationInformEntity {
 
     @OneToOne
     private InformEntity inform;
-
     private String status;
 
     @Column(name = "reception_date")
