@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -40,7 +39,21 @@ public class CommandInit {
                     .listPermission(Set.of(created,read))
                     .build();
 
-            roleRepository.saveAll(List.of(admin,rector,funcionario));
+            UserEntity user= UserEntity.builder()
+                    .firstName("Jefferson")
+                    .lastName("Chaustre")
+                    .username("jeffer")
+                    .identifier(1092524589L)
+                    .phone(3166846822L)
+                    .institutionalEmail("chaustrejefferson@gmail.com")
+                    .password(passwordEncoder.encode("milluh123"))
+                    .roles(Set.of(admin,rector,funcionario))
+                    .isEnabled(true)
+                    .isAccountNonExpired(true)
+                    .isCredentialsNonExpired(true)
+                    .isAccountNonLocked(true)
+                    .build();
+
 
             AreaEntity area= AreaEntity.builder()
                     .name("Resctoria")
@@ -48,7 +61,10 @@ public class CommandInit {
                     .users(Collections.emptyList())
                     .description("Area de Rectoria")
                     .build();
+
             areaRepository.save(area);
+            user.setAreaEntities(area);
+            userRepository.save(user);
         };
     }
 

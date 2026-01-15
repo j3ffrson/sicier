@@ -2,18 +2,21 @@ package org.fesc.sicier.services;
 
 import org.fesc.sicier.services.dtos.request.CreateInformRequest;
 import org.fesc.sicier.services.dtos.response.InformDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface InformServices {
 
-    List<InformDto> getAllInform();
+    Page<InformDto> getAllInform(Pageable pageable);
     List<InformDto> getAllInformByUsers(String user);
     List<InformDto> getAllInformByAreas(String area);
     InformDto getInformById(Long id);
     InformDto getInformByTitle(String title);
     InformDto createInformDraft();
-    InformDto CreateInformComplete(CreateInformRequest informRequest,Long id);
+    InformDto createInformComplete(CreateInformRequest informRequest,Long id);
+    InformDto changeGlobalState(Long id,String state);
     void deleteInform(Long id);
 
 

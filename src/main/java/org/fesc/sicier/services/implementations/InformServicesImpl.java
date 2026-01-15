@@ -12,6 +12,8 @@ import org.fesc.sicier.services.InformServices;
 import org.fesc.sicier.services.dtos.request.CreateInformRequest;
 import org.fesc.sicier.services.dtos.response.InformDto;
 import org.fesc.sicier.utils.InformMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,8 +29,8 @@ public class InformServicesImpl implements InformServices {
     private final InformMapper informMapper;
 
     @Override
-    public List<InformDto> getAllInform() {
-        return informMapper.toInformDtoList(informRepository.findAll());
+    public Page<InformDto> getAllInform(Pageable pageable) {
+        return informRepository.findAll(pageable).map(informMapper::toInformDto);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class InformServicesImpl implements InformServices {
     }
 
     @Override
-    public InformDto CreateInformComplete(CreateInformRequest informRequest,Long id) {
+    public InformDto createInformComplete(CreateInformRequest informRequest,Long id) {
 
         InformEntity informEntity= informMapper.requestToInformEntity(informRequest);
         informEntity.setId(id);
@@ -76,6 +78,14 @@ public class InformServicesImpl implements InformServices {
         }
         informRepository.save(informEntity);
         return informMapper.toInformDto(informRepository.save(informEntity));
+    }
+
+    @Override
+    public InformDto changeGlobalState(Long id,String state) {
+        InformEntity informState= informRepository.findById(id).orElseThrow();
+        informState.setStatus(state);
+        informRepository.save(informState);
+        return informMapper.toInformDto(informState);
     }
 
     @Override
