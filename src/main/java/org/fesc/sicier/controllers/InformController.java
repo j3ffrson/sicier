@@ -37,5 +37,11 @@ public class InformController {
     public ResponseEntity<InformDto> creteInformComplete(@RequestBody @Valid CreateInformRequest createInformRequest,@PathVariable Long id){
         return new ResponseEntity<>(informServices.CreateInformComplete(createInformRequest,id),HttpStatus.OK);
     }
+    @DeleteMapping("delete/{id}")
+    @PreAuthorize("hasAuthority('DELETE')")
+    public ResponseEntity<String> deleteInform(@PathVariable Long id){
+        informServices.deleteInform(id);
+        return new ResponseEntity<>("Inform deleted",HttpStatus.OK);
+    }
 
 }
