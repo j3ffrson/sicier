@@ -10,8 +10,8 @@ import java.util.List;
 public interface InformServices {
 
     Page<InformDto> getAllInform(Pageable pageable);
-    List<InformDto> getAllInformByUsers(String user);
-    List<InformDto> getAllInformByAreas(String area);
+    List<InformDto> getAllInformByUser(String user);
+    List<InformDto> getAllInformByArea(String area);
     InformDto getInformById(Long id);
     InformDto getInformByTitle(String title);
     InformDto createInformDraft();

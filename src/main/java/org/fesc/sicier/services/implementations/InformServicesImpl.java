@@ -34,12 +34,12 @@ public class InformServicesImpl implements InformServices {
     }
 
     @Override
-    public List<InformDto> getAllInformByUsers(String user) {
+    public List<InformDto> getAllInformByUser(String user) {
         return informMapper.toInformDtoList(informRepository.findInformEntitiesByUserEmisor_FirstName(user));
     }
 
     @Override
-    public List<InformDto> getAllInformByAreas(String area) {
+    public List<InformDto> getAllInformByArea(String area) {
         return informMapper.toInformDtoList(informRepository.findInformEntitiesByAreasEmisor_Name(area));
     }
 
