@@ -3,9 +3,7 @@ package org.fesc.sicier.services.implementations;
 import lombok.RequiredArgsConstructor;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
-import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.InformRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
 import org.fesc.sicier.services.InformServices;
@@ -17,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +22,6 @@ public class InformServicesImpl implements InformServices {
 
     private final InformRepository informRepository;
     private final UserRepository userRepository;
-    private final AreaRepository areaRepository;
     private final InformMapper informMapper;
 
     @Override
@@ -34,14 +30,10 @@ public class InformServicesImpl implements InformServices {
     }
 
     @Override
-    public List<InformDto> getAllInformByUser(String user) {
-        return informMapper.toInformDtoList(informRepository.findInformEntitiesByUserEmisor_FirstName(user));
+    public Page<InformDto> getAllInformByUser(Long id,Pageable pageable) {
+        return informRepository.findInformEntitiesByUserEmisor_Id(id,pageable).map(informMapper::toInformDto);
     }
 
-    @Override
-    public List<InformDto> getAllInformByArea(String area) {
-        return informMapper.toInformDtoList(informRepository.findInformEntitiesByAreasEmisor_Name(area));
-    }
 
     @Override
     public InformDto getInformById(Long id) {
@@ -68,14 +60,11 @@ public class InformServicesImpl implements InformServices {
         InformEntity informEntity= informMapper.requestToInformEntity(informRequest);
         informEntity.setId(id);
         informEntity.setCreationDate(LocalDateTime.now());
-        if(informRequest.areaName().isBlank()){
-            UserEntity userEntity= userRepository.findByFirstName(informRequest.userName()).orElseThrow();
-            informEntity.setUserEmisor(userEntity);
-        }
-        if(informRequest.userName().isBlank()){
-            AreaEntity area= areaRepository.findByName(informEntity.getAreasEmisor().getName()).orElseThrow();
-            informEntity.setAreasEmisor(area);
-        }
+
+        UserEntity userEntity= userRepository.findByFirstName(informRequest.userName()).orElseThrow();
+        informEntity.setUserEmisor(userEntity);
+
+
         informRepository.save(informEntity);
         return informMapper.toInformDto(informRepository.save(informEntity));
     }

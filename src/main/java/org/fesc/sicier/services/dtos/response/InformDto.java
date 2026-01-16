@@ -14,6 +14,5 @@ public class InformDto {
     private String creationDate;
     private List<DestinationInformDto> destinations= new ArrayList<>();
     private UserDto userEmisor;
-    private AreaDto areasEmisor;
 
 }

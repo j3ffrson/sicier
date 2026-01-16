@@ -9,7 +9,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "employee")
 @Builder
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
     private Long id;
     @Column(nullable = false)
     private String firstName;
@@ -52,8 +52,8 @@ public class UserEntity {
     private AreaEntity areaEntities;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "employee_roles",
+            joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 

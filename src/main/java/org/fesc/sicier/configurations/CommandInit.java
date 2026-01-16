@@ -19,7 +19,8 @@ import java.util.Set;
 public class CommandInit {
 
     @Bean
-    CommandLineRunner init(PasswordEncoder passwordEncoder, UserRepository userRepository, AreaRepository areaRepository, RoleRepository roleRepository){
+    CommandLineRunner init(PasswordEncoder passwordEncoder, UserRepository userRepository,
+                           AreaRepository areaRepository, RoleRepository roleRepository){
         return args -> {
             PermissionEntity created= PermissionEntity.builder().name("CREATE").build();
             PermissionEntity read= PermissionEntity.builder().name("READ").build();
@@ -39,7 +40,7 @@ public class CommandInit {
                     .listPermission(Set.of(created,read))
                     .build();
 
-            UserEntity user= UserEntity.builder()
+            UserEntity employee= UserEntity.builder()
                     .firstName("Jefferson")
                     .lastName("Chaustre")
                     .username("jeffer")
@@ -56,15 +57,15 @@ public class CommandInit {
 
 
             AreaEntity area= AreaEntity.builder()
-                    .name("Resctoria")
+                    .name("Rectoria")
                     .active(true)
                     .users(Collections.emptyList())
                     .description("Area de Rectoria")
                     .build();
 
             areaRepository.save(area);
-            user.setAreaEntities(area);
-            userRepository.save(user);
+            employee.setAreaEntities(area);
+            userRepository.save(employee);
         };
     }
 

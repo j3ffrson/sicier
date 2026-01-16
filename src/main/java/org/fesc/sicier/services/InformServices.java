@@ -5,13 +5,11 @@ import org.fesc.sicier.services.dtos.response.InformDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface InformServices {
 
     Page<InformDto> getAllInform(Pageable pageable);
-    List<InformDto> getAllInformByUser(String user);
-    List<InformDto> getAllInformByArea(String area);
+    Page<InformDto> getAllInformByUser(Long id,Pageable pageable);
     InformDto getInformById(Long id);
     InformDto getInformByTitle(String title);
     InformDto createInformDraft();
