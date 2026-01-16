@@ -2,6 +2,8 @@ package org.fesc.sicier.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.fesc.sicier.persistence.entities.security.UserEntity;
+import org.fesc.sicier.persistence.repositories.UserRepository;
 import org.fesc.sicier.services.InformServices;
 import org.fesc.sicier.services.dtos.request.CreateInformRequest;
 import org.fesc.sicier.services.dtos.response.InformDto;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,16 +22,31 @@ import org.springframework.web.bind.annotation.*;
 public class InformController {
 
     private final InformServices informServices;
+    private final UserRepository userRepository;
 
-    @GetMapping("list")
+    @GetMapping("general/list")
     @PreAuthorize("hasAuthority('READ')")
-    public ResponseEntity<Page<InformDto>> getListInform(@RequestParam(name = "page", defaultValue = "0") int pageNumber,
+    public ResponseEntity<Page<InformDto>> getListInformGlobal(@RequestParam(name = "page", defaultValue = "0") int pageNumber,
                                                          @RequestParam(name = "size",defaultValue = "3") int pageSize){
 
         Pageable pageable= PageRequest.of(pageNumber,pageSize);
         return new ResponseEntity<>(informServices.getAllInform(pageable),HttpStatus.OK);
 
     }
+    @GetMapping("user/list")
+    @PreAuthorize("hasAuthority('READ')")
+    public ResponseEntity<Page<InformDto>> getListInformUser(@RequestParam(name = "page", defaultValue = "0") int pageNumber,
+                                                         @RequestParam(name = "size",defaultValue = "3") int pageSize){
+
+
+        String username= SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity user= userRepository.findByUsername(username).orElseThrow();
+
+        Pageable pageable= PageRequest.of(pageNumber,pageSize);
+        return new ResponseEntity<>(informServices.getAllInformByUser(user.getId(),pageable),HttpStatus.OK);
+
+    }
+
     @GetMapping("{id}")
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<InformDto> getInformById(@PathVariable Long id){

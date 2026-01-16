@@ -10,6 +10,5 @@ public record CreateInformRequest(
         @NotBlank String description,
         @NotBlank String status,
         List<String> destinations,
-        String userName,
-        String areaName
+        String userName
 ) {}
