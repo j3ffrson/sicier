@@ -1,4 +1,4 @@
-package org.fesc.sicier.configurations;
+package org.fesc.sicier.configurations.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
