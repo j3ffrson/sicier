@@ -5,6 +5,7 @@ import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.UserRepository;
 import org.fesc.sicier.services.AuthService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserEntity getCurrentUser(Authentication authentication) {
-        UserDetails userDetails =
-                (UserDetails) authentication.getPrincipal();
 
-        String username = userDetails.getUsername();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return userRepository.findByUsername(username)
                 .orElseThrow(() ->

@@ -50,7 +50,7 @@ public class SendInformServiceImpl implements SendInformService {
         if(!inform.getUserEmisor().equals(user)){
             throw new BusinessException("No es el usuario");
         }
-        if(inform.getStatus()!=InformStates.COMPLETADO.name()){
+        if(!inform.getStatus().equals(InformStates.COMPLETADO.name())){
             throw new BusinessException("Estado invallido");
         }
     }

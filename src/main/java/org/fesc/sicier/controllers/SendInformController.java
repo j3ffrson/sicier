@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("\"/sicier/api/v1/send")
+@RequestMapping("/sicier/api/v1/send")
 @RequiredArgsConstructor
 public class SendInformController {
 

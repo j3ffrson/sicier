@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -53,7 +54,20 @@ public class CommandInit {
                     .isCredentialsNonExpired(true)
                     .isAccountNonLocked(true)
                     .build();
-
+            UserEntity user2= UserEntity.builder()
+                    .firstName("Brayam")
+                    .lastName("Osorio")
+                    .username("Brayam")
+                    .identifier(3333333L)
+                    .phone(222222L)
+                    .institutionalEmail("Brayam@gmail.com")
+                    .password(passwordEncoder.encode("1234"))
+                    .roles(Set.of(admin,rector,funcionario))
+                    .isEnabled(true)
+                    .isAccountNonExpired(true)
+                    .isCredentialsNonExpired(true)
+                    .isAccountNonLocked(true)
+                    .build();
 
             AreaEntity area= AreaEntity.builder()
                     .name("Resctoria")
@@ -61,10 +75,20 @@ public class CommandInit {
                     .users(Collections.emptyList())
                     .description("Area de Rectoria")
                     .build();
+            AreaEntity area2= AreaEntity.builder()
+                    .name("DAcademico")
+                    .active(true)
+                    .users(Collections.emptyList())
+                    .description("Desarrollo academico")
+                    .build();
 
-            areaRepository.save(area);
+            areaRepository.saveAll(List.of(area,area2));
             user.setAreaEntities(area);
-            userRepository.save(user);
+            user2.setAreaEntities(area2);
+            userRepository.saveAll(List.of(user,user2));
+            area.setUsers(List.of(user));
+            area2.setUsers(List.of(user2));
+            areaRepository.saveAll(List.of(area,area2));
         };
     }
 
