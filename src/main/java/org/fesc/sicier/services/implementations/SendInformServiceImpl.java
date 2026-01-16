@@ -10,8 +10,10 @@ import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.DestinationInformRepository;
 import org.fesc.sicier.persistence.repositories.InformRepository;
+import org.fesc.sicier.services.NotificationService;
 import org.fesc.sicier.services.SendInformService;
 import org.fesc.sicier.services.StateDestination;
+import org.fesc.sicier.services.dtos.response.ReceibedInformEvent;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,7 @@ public class SendInformServiceImpl implements SendInformService {
     private final InformRepository informRepository;
     private final AreaRepository areaRepository;
     private final DestinationInformRepository destinationInformRepository;
+    private final NotificationService notificationService;
 
     @Override
     public void sendInform(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException{
@@ -34,10 +37,11 @@ public class SendInformServiceImpl implements SendInformService {
 
         for (Long areaId:areasDestinationIds){
             AreaEntity area= areaRepository.findById(areaId).orElseThrow();
-
             createDestination(inform,area);
-
         }
+
+
+
 
     }
 
@@ -46,7 +50,7 @@ public class SendInformServiceImpl implements SendInformService {
         if(!inform.getUserEmisor().equals(user)){
             throw new BusinessException("No es el usuario");
         }
-        if(inform.getStatus()!=InformStates.COMPLETADO.name()){
+        if(!inform.getStatus().equals(InformStates.COMPLETADO.name())){
             throw new BusinessException("Estado invallido");
         }
     }
@@ -62,6 +66,14 @@ public class SendInformServiceImpl implements SendInformService {
                 .build();
 
         destinationInformRepository.save(destinationInform);
+        notificationService.notificateArea(
+                area.getId(),
+                new ReceibedInformEvent(
+                        inform.getId(),
+                        inform.getTitle(),
+                        inform.getAreasEmisor(),
+                        inform.getCreationDate()
+                ));
     }
 
     @Override

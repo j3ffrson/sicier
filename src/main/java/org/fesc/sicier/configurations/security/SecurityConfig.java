@@ -1,4 +1,4 @@
-package org.fesc.sicier.configurations;
+package org.fesc.sicier.configurations.security;
 
 import lombok.RequiredArgsConstructor;
 import org.fesc.sicier.configurations.Filter.JwtTokenValidator;
