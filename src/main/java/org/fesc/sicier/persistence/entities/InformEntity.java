@@ -35,8 +35,12 @@ public class InformEntity {
     private List<DestinationInformEntity> destinations= new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "emisor_id")
+    @JoinColumn(name = "user_id")
     private UserEntity userEmisor;
+
+    @ManyToOne
+    @JoinColumn(name = "area_id")
+    private AreaEntity areaEmisor;
 
 
 }

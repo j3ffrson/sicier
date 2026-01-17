@@ -63,6 +63,7 @@ public class InformServicesImpl implements InformServices {
 
         UserEntity userEntity= userRepository.findByFirstName(informRequest.userName()).orElseThrow();
         informEntity.setUserEmisor(userEntity);
+        informEntity.setAreaEmisor(userEntity.getAreaEntities());
 
 
         informRepository.save(informEntity);

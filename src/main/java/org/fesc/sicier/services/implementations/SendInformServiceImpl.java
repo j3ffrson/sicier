@@ -2,6 +2,8 @@ package org.fesc.sicier.services.implementations;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+@Slf4j
 @Service
 @Transactional
 @AllArgsConstructor
@@ -32,6 +36,7 @@ public class SendInformServiceImpl implements SendInformService {
     public void sendInform(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException{
 
         InformEntity inform= informRepository.findById(informId).orElseThrow();
+        log.info("Enviando "+informId+" a usuario"+user.getFirstName());
         validateSend(inform,user);
         inform.setStatus(InformStates.ENVIADO.name());
 
@@ -71,7 +76,7 @@ public class SendInformServiceImpl implements SendInformService {
                 new ReceibedInformEvent(
                         inform.getId(),
                         inform.getTitle(),
-                        inform.getAreasEmisor(),
+                        inform.getAreaEmisor(),
                         inform.getCreationDate()
                 ));
     }

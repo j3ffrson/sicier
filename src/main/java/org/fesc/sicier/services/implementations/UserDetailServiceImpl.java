@@ -101,7 +101,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         Set<RoleEntity> roleEntities= roleRepository.findRoleEntitiesByRolesNameIn(roles)
                 .stream().collect(Collectors.toSet());
-        AreaEntity areaEntity= areaRepository.findByName(areaName).orElseThrow();
+        AreaEntity areaEntity= areaRepository.findByName(areaName).orElse(null);
         UserEntity user=UserEntity.builder()
                 .firstName(name)
                 .lastName(lastName)
@@ -118,6 +118,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .isAccountNonLocked(true)
                 .isCredentialsNonExpired(true)
                 .build();
+        areaEntity.setUser(user);
 
         UserEntity usuarioEntity= userRepository.save(user);
         List<SimpleGrantedAuthority> authorityList= new ArrayList<>();
