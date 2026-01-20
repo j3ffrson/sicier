@@ -3,7 +3,6 @@ package org.fesc.sicier.services.implementations;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
 import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
@@ -16,7 +15,7 @@ import org.fesc.sicier.persistence.repositories.UserRepository;
 import org.fesc.sicier.services.NotificationService;
 import org.fesc.sicier.services.SendInformService;
 import org.fesc.sicier.services.StateDestination;
-import org.fesc.sicier.services.dtos.response.ReceibedInformEvent;
+import org.fesc.sicier.services.dtos.response.events.ReceibedInformEvent;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

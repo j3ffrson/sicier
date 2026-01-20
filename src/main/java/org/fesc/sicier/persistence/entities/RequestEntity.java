@@ -22,32 +22,32 @@ public class RequestEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String titulo;
+    private String title;
 
     @Column(nullable = false, length = 2000)
-    private String descripcion;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RequestStates estado;
+    private RequestStates state;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "solicitante_id")
-    private UserEntity solicitante;
+    private UserEntity requester;
 
     @ManyToOne
     @JoinColumn(name = "area_destino_id")
-    private AreaEntity areaDestino;
+    private AreaEntity areaDestination;
 
     @ManyToOne
     @JoinColumn(name = "usuario_destino_id")
-    private UserEntity usuarioDestino;
+    private UserEntity userDestination;
 
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime creationDate;
 
-    private LocalDateTime fechaRespuesta;
+    private LocalDateTime responseDate;
 
     @Column(length = 2000)
-    private String respuesta;
+    private String response;
 
 }
