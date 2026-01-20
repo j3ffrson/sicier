@@ -8,7 +8,5 @@ public record CreateInformRequest(
 
         @NotBlank String title,
         @NotBlank String description,
-        @NotBlank String status,
-        String userName,
-        String areaName
+        @NotBlank String status
 ) {}

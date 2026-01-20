@@ -20,8 +20,7 @@ public class DestinationInformEntity {
     @SequenceGenerator(name = "dest_seq", sequenceName = "dest_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne
-    private InformEntity inform;
+
     private String status;
 
     @Column(name = "reception_date")
@@ -31,9 +30,12 @@ public class DestinationInformEntity {
     private LocalDateTime dateReading;
 
     @ManyToOne
+    @JoinColumn(name = "inform_id")
+    private InformEntity inform;
+
+    @ManyToOne
     @JoinColumn(name = "area_destination_id")
     private AreaEntity areaDestination;
-
 
 
 }

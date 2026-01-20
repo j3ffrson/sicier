@@ -27,15 +27,10 @@ public class AreaEntity {
     @Column(nullable = false)
     private Boolean active;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "area",orphanRemoval = true)
     private List<UserEntity> users= new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "areaEmisor",orphanRemoval = true)
     private List<InformEntity> informs= new ArrayList<>();
-
-    public void setUser(UserEntity user){
-        this.users.add(user);
-        user.setAreaEntities(this);
-    }
 
 }

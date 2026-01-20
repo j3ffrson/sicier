@@ -3,6 +3,7 @@ package org.fesc.sicier.services.implementations;
 import lombok.RequiredArgsConstructor;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
+import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.InformRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
@@ -12,6 +13,7 @@ import org.fesc.sicier.services.dtos.response.InformDto;
 import org.fesc.sicier.utils.InformMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -61,9 +63,11 @@ public class InformServicesImpl implements InformServices {
         informEntity.setId(id);
         informEntity.setCreationDate(LocalDateTime.now());
 
-        UserEntity userEntity= userRepository.findByFirstName(informRequest.userName()).orElseThrow();
+        String username= SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity userEntity= userRepository.findByUsername(username).orElseThrow();
+
         informEntity.setUserEmisor(userEntity);
-        informEntity.setAreaEmisor(userEntity.getAreaEntities());
+        informEntity.setAreaEmisor(userEntity.getArea());
 
 
         informRepository.save(informEntity);

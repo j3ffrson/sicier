@@ -36,7 +36,7 @@ public class SendInformServiceImpl implements SendInformService {
     public void sendInform(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException{
 
         InformEntity inform= informRepository.findById(informId).orElseThrow();
-        log.info("Enviando "+informId+" a usuario"+user.getFirstName());
+        log.info("Enviando "+informId+" a usuario "+user.getFirstName());
         validateSend(inform,user);
         inform.setStatus(InformStates.ENVIADO.name());
 
@@ -44,8 +44,6 @@ public class SendInformServiceImpl implements SendInformService {
             AreaEntity area= areaRepository.findById(areaId).orElseThrow();
             createDestination(inform,area);
         }
-
-
 
 
     }
@@ -76,7 +74,7 @@ public class SendInformServiceImpl implements SendInformService {
                 new ReceibedInformEvent(
                         inform.getId(),
                         inform.getTitle(),
-                        inform.getAreaEmisor(),
+                        inform.getAreaEmisor().getDescription(),
                         inform.getCreationDate()
                 ));
     }
@@ -93,7 +91,7 @@ public class SendInformServiceImpl implements SendInformService {
 
     @Override
     public void validateAreaAcces(DestinationInformEntity destinationInform, UserEntity user) throws BusinessException{
-        if (!destinationInform.getAreaDestination().equals(user.getAreaEntities())){
+        if (!destinationInform.getAreaDestination().equals(user.getArea())){
             throw new BusinessException("no pertene al area");
         }
     }

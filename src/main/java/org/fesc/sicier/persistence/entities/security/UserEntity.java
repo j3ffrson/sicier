@@ -26,9 +26,9 @@ public class UserEntity {
     private String lastName;
     @Column(nullable = false)
     private Long phone;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private Long identifier;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false,name = "institutional_email")
     private String institutionalEmail;
@@ -49,7 +49,7 @@ public class UserEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "area_id")
-    private AreaEntity areaEntities;
+    private AreaEntity area;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "employee_roles",

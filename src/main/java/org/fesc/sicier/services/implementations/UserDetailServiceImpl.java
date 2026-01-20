@@ -112,13 +112,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .roles(roleEntities)
-                .areaEntities(areaEntity)
+                .area(areaEntity)
                 .isEnabled(true)
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
                 .isCredentialsNonExpired(true)
                 .build();
-        areaEntity.setUser(user);
 
         UserEntity usuarioEntity= userRepository.save(user);
         List<SimpleGrantedAuthority> authorityList= new ArrayList<>();

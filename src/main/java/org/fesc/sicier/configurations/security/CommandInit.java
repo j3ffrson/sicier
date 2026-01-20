@@ -37,7 +37,7 @@ public class CommandInit {
                     .build();
             RoleEntity funcionario= RoleEntity.builder()
                     .rolesName(ERoles.FUNC)
-                    .listPermission(Set.of(created,read))
+                    .listPermission(Set.of(created,read,update))
                     .build();
 
             roleRepository.saveAll(List.of(admin,rector,funcionario));

@@ -20,12 +20,10 @@ import java.util.List;
 public interface InformMapper {
 
     InformDto toInformDto(InformEntity informEntity);
-    List<InformDto> toInformDtoList(List<InformEntity> informEntities);
     InformEntity toInformEntity(InformDto informDto);
     AreaDto toAreaDto(AreaEntity areaEntity);
     DestinationInformDto toDestinationInformDto(DestinationInformEntity destinationInformEntity);
     UserDto toUserDto(UserEntity userEntity);
-    @Mapping(target = "destinations",ignore = true)
     InformEntity requestToInformEntity(CreateInformRequest createInformRequest);
 
     default String mapCreationDate(LocalDateTime creationDate){

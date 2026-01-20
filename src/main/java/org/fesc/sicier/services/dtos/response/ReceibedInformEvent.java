@@ -1,15 +1,20 @@
 package org.fesc.sicier.services.dtos.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.fesc.sicier.persistence.entities.security.AreaEntity;
 
 import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class ReceibedInformEvent {
 
-    private Long informId;
-    private String title;
-    private AreaEntity areaEmisor;
-    private LocalDateTime date;
+    Long informId;
+    String title;
+    String description;
+    LocalDateTime date;
 
 }

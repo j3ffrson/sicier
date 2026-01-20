@@ -31,14 +31,14 @@ public class InformEntity {
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "inform" )
     private List<DestinationInformEntity> destinations= new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEmisor;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "area_id")
     private AreaEntity areaEmisor;
 
