@@ -18,17 +18,33 @@ public class SendInformController {
     private final SendInformService sendInformService;
     private final AuthService authService;
 
-    @PostMapping("/{id}/enviar")
-    public ResponseEntity<Void> enviarInforme(
+    @PostMapping("/inform/{id}/area")
+    public ResponseEntity<Void> sendInformArea(
             @PathVariable Long id,
             @RequestBody SendInformRequest request,
             Authentication authentication) throws BusinessException {
 
         UserEntity user = authService.getCurrentUser(authentication);
 
-        sendInformService.sendInform(
+        sendInformService.sendInformArea(
                 id,
-                request.areasDestination(),
+                request.destinations(),
+                user
+        );
+
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/inform/{id}/user")
+    public ResponseEntity<Void> sendInformUser(
+            @PathVariable Long id,
+            @RequestBody SendInformRequest request,
+            Authentication authentication) throws BusinessException {
+
+        UserEntity user = authService.getCurrentUser(authentication);
+
+        sendInformService.sendInformUser(
+                id,
+                request.destinations(),
                 user
         );
 

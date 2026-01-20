@@ -9,9 +9,11 @@ import org.fesc.sicier.services.implementations.BusinessException;
 import java.util.List;
 
 public interface SendInformService {
-    void sendInform(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException;
+    void sendInformArea(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException;
+    void sendInformUser(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException;
     void validateSend(InformEntity inform,UserEntity user) throws BusinessException;
-    void createDestination(InformEntity inform, AreaEntity area) throws BusinessException;
+    void createDestinationArea(InformEntity inform, AreaEntity area) throws BusinessException;
+    void createDestinationUser(InformEntity inform, UserEntity user) throws BusinessException;
     void readInform(Long destinationId,UserEntity user) throws BusinessException;
     void validateAreaAcces(DestinationInformEntity destinationInform,UserEntity user) throws BusinessException;
 }

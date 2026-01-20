@@ -14,7 +14,7 @@ public class ReceibedInformEvent {
 
     Long informId;
     String title;
-    String description;
+    String issuer;
     LocalDateTime date;
 
 }

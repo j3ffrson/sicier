@@ -3,6 +3,7 @@ package org.fesc.sicier.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.fesc.sicier.persistence.entities.security.AreaEntity;
+import org.fesc.sicier.persistence.entities.security.UserEntity;
 
 import java.time.LocalDateTime;
 
@@ -36,6 +37,10 @@ public class DestinationInformEntity {
     @ManyToOne
     @JoinColumn(name = "area_destination_id")
     private AreaEntity areaDestination;
+
+    @ManyToOne
+    @JoinColumn(name = "user_destination")
+    private UserEntity userDestination;
 
 
 }
