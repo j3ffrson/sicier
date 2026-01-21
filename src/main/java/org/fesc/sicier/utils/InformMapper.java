@@ -2,7 +2,7 @@ package org.fesc.sicier.utils;
 
 import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.InformEntity;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
+import org.fesc.sicier.persistence.entities.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.services.dtos.request.CreateInformRequest;
 import org.fesc.sicier.services.dtos.response.AreaDto;
@@ -10,11 +10,9 @@ import org.fesc.sicier.services.dtos.response.DestinationInformDto;
 import org.fesc.sicier.services.dtos.response.InformDto;
 import org.fesc.sicier.services.dtos.response.UserDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface InformMapper {

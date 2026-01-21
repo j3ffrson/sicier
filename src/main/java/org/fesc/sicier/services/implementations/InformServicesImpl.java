@@ -3,7 +3,6 @@ package org.fesc.sicier.services.implementations;
 import lombok.RequiredArgsConstructor;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.InformRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;

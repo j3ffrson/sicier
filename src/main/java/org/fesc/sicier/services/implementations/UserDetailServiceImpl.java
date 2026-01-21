@@ -2,7 +2,7 @@ package org.fesc.sicier.services.implementations;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
+import org.fesc.sicier.persistence.entities.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.ERoles;
 import org.fesc.sicier.persistence.entities.security.RoleEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;

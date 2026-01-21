@@ -1,15 +1,15 @@
 package org.fesc.sicier.persistence.entities;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
+import org.fesc.sicier.persistence.listener.AuditEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@EntityListeners(AuditEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "inform")

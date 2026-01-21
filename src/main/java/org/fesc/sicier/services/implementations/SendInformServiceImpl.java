@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
+import org.fesc.sicier.persistence.entities.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.DestinationInformRepository;

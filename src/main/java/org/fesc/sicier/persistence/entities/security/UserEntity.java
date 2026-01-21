@@ -2,7 +2,7 @@ package org.fesc.sicier.persistence.entities.security;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.fesc.sicier.persistence.entities.InformEntity;
+import org.fesc.sicier.persistence.entities.AreaEntity;
 
 import java.util.HashSet;
 import java.util.Set;

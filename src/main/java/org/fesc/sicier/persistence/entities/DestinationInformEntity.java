@@ -2,7 +2,6 @@ package org.fesc.sicier.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 
 import java.time.LocalDateTime;
