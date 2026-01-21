@@ -8,10 +8,13 @@ import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.RequestRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
+import org.fesc.sicier.services.NotificationService;
 import org.fesc.sicier.services.RequestService;
 import org.fesc.sicier.services.dtos.request.CreateAreaReqRequest;
 import org.fesc.sicier.services.dtos.request.CreateUserReqRequest;
 import org.fesc.sicier.services.dtos.response.RequestResponseDto;
+import org.fesc.sicier.services.dtos.response.events.RequestReceivedEvent;
+import org.fesc.sicier.services.dtos.response.events.RequestResponseEvent;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
@@ -24,6 +27,7 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final AreaRepository areaRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     @Override
     public void validateDestination(RequestEntity request) throws BusinessException {
@@ -53,6 +57,16 @@ public class RequestServiceImpl implements RequestService {
 
         validateDestination(request);
         requestRepository.save(request);
+
+        notificationService.notificateArea(
+                request.getAreaDestination().getId(),
+                new RequestReceivedEvent(
+                        request.getId(),
+                        request.getTitle(),
+                        request.getDescription(),
+                        user.getFirstName(),
+                        request.getCreationDate()
+                ));
     }
 
     @Override
@@ -70,11 +84,20 @@ public class RequestServiceImpl implements RequestService {
 
         validateDestination(request);
         requestRepository.save(request);
+
+        notificationService.notificateUser(request.getUserDestination().getId(),
+                new RequestReceivedEvent(
+                        request.getId(),
+                        request.getTitle(),
+                        request.getDescription(),
+                        user.getFirstName(),
+                        request.getCreationDate()
+                ));
     }
 
     @Override
     @Transactional
-    public void responseSolicited(Long id, RequestResponseDto requestResponseDto, UserEntity user) throws BusinessException, AccessDeniedException {
+    public void responseSolicited(Long id, RequestResponseDto requestResponseDto, UserEntity user) throws  AccessDeniedException {
 
         RequestEntity request= requestRepository.findById(id).orElseThrow();
 
@@ -83,6 +106,14 @@ public class RequestServiceImpl implements RequestService {
         request.setResponse(requestResponseDto.getResponse());
         request.setState(requestResponseDto.getNewState());
         request.setResponseDate(LocalDateTime.now());
+
+        notificationService.notificateUser(request.getUserDestination().getId(),
+                new RequestResponseEvent(
+                        request.getId(),
+                        request.getState().name(),
+                        request.getResponse(),
+                        request.getResponseDate()
+                ));
 
     }
     private void validarAcceso(RequestEntity s, UserEntity usuario) throws AccessDeniedException {

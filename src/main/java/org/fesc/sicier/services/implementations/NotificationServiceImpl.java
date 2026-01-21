@@ -22,7 +22,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void notificateUser(Long userId, Object payload) {
         messagingTemplate.convertAndSend(
-                "/topic/user/"+userId,
+                "/queue/user/"+userId,
                 payload
         );
     }
