@@ -1,9 +1,8 @@
-package org.fesc.sicier.services.dtos.response;
+package org.fesc.sicier.services.dtos.response.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.fesc.sicier.persistence.entities.security.AreaEntity;
 
 import java.time.LocalDateTime;
 

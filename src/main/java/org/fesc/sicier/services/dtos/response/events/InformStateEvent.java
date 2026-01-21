@@ -1,4 +1,4 @@
-package org.fesc.sicier.services.dtos.response;
+package org.fesc.sicier.services.dtos.response.events;
 
 public class InformStateEvent {
 
