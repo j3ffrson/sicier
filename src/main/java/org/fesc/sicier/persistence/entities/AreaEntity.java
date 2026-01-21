@@ -1,12 +1,14 @@
-package org.fesc.sicier.persistence.entities.security;
+package org.fesc.sicier.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.fesc.sicier.persistence.entities.InformEntity;
+import org.fesc.sicier.persistence.entities.security.UserEntity;
+import org.fesc.sicier.persistence.listener.AuditEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EntityListeners(AuditEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "area")
