@@ -45,7 +45,7 @@ public class SendInformServiceImpl implements SendInformService {
             log.info("Informe con id "+informId+" enviado a areas  "+area.getName()+" por "+user.getFirstName());
         }
 
-        historyStateService.registerInformState(inform,InformStates.ENVIADO,user,"Registro de enviao de informe");
+        historyStateService.registerInformState(inform,InformStates.ENVIADO,user,"Registro de Envio de Informe a Area");
 
     }
 
@@ -62,17 +62,17 @@ public class SendInformServiceImpl implements SendInformService {
             log.info("Informe con id "+informId+" enviado a usuarios "+userDest.getFirstName()+" ,");
         }
 
-        historyStateService.registerInformState(inform,InformStates.ENVIADO,user,"Registro de enviao de informe");
+        historyStateService.registerInformState(inform,InformStates.ENVIADO,user,"Registro de Envio de Informe a Usuario");
 
     }
 
     @Override
     public void validateSend(InformEntity inform, UserEntity user) throws BusinessException {
         if(!inform.getUserEmisor().equals(user)){
-            throw new BusinessException("No es el usuario");
+            throw new BusinessException(String.format("El informe no le pertenece al usuario %s %s",user.getFirstName(),user.getLastName()));
         }
         if(!inform.getStatus().equals(InformStates.COMPLETADO.name())){
-            throw new BusinessException("Estado invallido");
+            throw new BusinessException("El informe no tiene estado COMPLETO");
         }
     }
 
@@ -130,7 +130,7 @@ public class SendInformServiceImpl implements SendInformService {
     @Override
     public void validateAreaAcces(DestinationInformEntity destinationInform, UserEntity user) throws BusinessException{
         if (!destinationInform.getAreaDestination().equals(user.getArea())){
-            throw new BusinessException("no pertene al area");
+            throw new BusinessException("El informe no pertene al area del usuario");
         }
     }
 

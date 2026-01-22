@@ -68,7 +68,7 @@ public class RequestServiceImpl implements RequestService {
                         user.getFirstName(),
                         request.getCreationDate()
                 ));
-        historyStateService.registerRequestState(request,RequestStates.CREADA,user,"Registro de peticion de areas");
+        historyStateService.registerRequestState(request,RequestStates.CREADA,user,"Registro de Peticion de Areas");
     }
 
     @Override
@@ -95,7 +95,7 @@ public class RequestServiceImpl implements RequestService {
                         user.getFirstName(),
                         request.getCreationDate()
                 ));
-        historyStateService.registerRequestState(request,RequestStates.CREADA,user,"Registro de peticion de usuarios");
+        historyStateService.registerRequestState(request,RequestStates.CREADA,user,"Registro de Peticion de Usuarios");
     }
 
     @Override
