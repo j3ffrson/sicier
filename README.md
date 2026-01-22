@@ -165,6 +165,7 @@ Para ejecutar el backend del sistema se requieren los siguientes componentes:
 - **Gradle:** 8.x o superior
 - **Base de datos:** PostgreSQL
 - **Docker:** (opcional, recomendado para despliegue)
+- **Image:** https://hub.docker.com/repository/docker/j3ffer/sicier/general
 
 ---
 
@@ -193,3 +194,8 @@ Las funcionalidades pendientes no afectan la lógica central del sistema y puede
 ## 👤 Autor / Equipo
 
 Proyecto desarrollado como parte de un **requerimiento institucional académico**, orientado a resolver problemáticas reales de comunicación interna en una institución de educación superior.
+
+- **Equipo**
+  - Jefferson Chaustre (Backend)
+  - Brayam Osorio (Frontend)
+  - Juan David Neira (Documentacion)
