@@ -31,38 +31,34 @@ public class AuditEntityListener {
     void prePersist(Object entity){
 
         List<String> entityName = Arrays.stream(entity.getClass().getName().split("\\.")).toList();
-        String user = getCurrentUser();
+        String user = "SYSTEM";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) user= auth.getName();
         history(entityName.getLast(), "INSERT", user);
     }
     @PreUpdate
     void preUpdate(Object entity){
         List<String> entityName= Arrays.stream(entity.getClass().getName().split("\\.")).toList();
-        String user = getCurrentUser();
+        String user = "SYSTEM";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) user= auth.getName();
         history(entityName.getLast(),"UPDATE",user);
     }
     @PreRemove
     void preRemove(Object entity){
         List<String> entityName= Arrays.stream(entity.getClass().getName().split("\\.")).toList();
-        String user = getCurrentUser();
+        String user = "SYSTEM";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) user= auth.getName();
         history(entityName.getLast(),"DELETE",user);
     }
 
-    private String getCurrentUser(){
-        String user = "SYSTEM";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()){
-            UserEntity userEntity= userRepository.findByUsername(auth.getName()).orElseThrow(()->new UsernameNotFoundException(auth.getName()));
-            user= String.format("%s %s",userEntity.getFirstName(),userEntity.getLastName());
-        }
-
-        return user;
-    }
 
     private void history(String object,String operation,String username){
         AuditEntity historyChanges = new AuditEntity();
         historyChanges.setObjectName(object);
         historyChanges.setOperation(operation);
-        historyChanges.setUser(username);
+        historyChanges.setUsername(username);
         historyChanges.setDate(LocalDateTime.now());
         auditRepository.save(historyChanges);
     }
