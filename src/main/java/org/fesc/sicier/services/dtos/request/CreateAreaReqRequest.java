@@ -1,8 +1,11 @@
 package org.fesc.sicier.services.dtos.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record CreateAreaReqRequest(
-        String title,
-        String description,
-        Long areaDestId
+        @NotBlank String title,
+        @NotBlank String description,
+        @NotNull(message = "Se nesecitan destinos") Long areaDestId
 ) {
 }

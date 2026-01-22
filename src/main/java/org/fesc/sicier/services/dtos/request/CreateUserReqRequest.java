@@ -1,8 +1,11 @@
 package org.fesc.sicier.services.dtos.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record CreateUserReqRequest(
-        String title,
+        @NotBlank String title,
         String description,
-        Long userDestId
+        @NotNull Long userDestId
 ) {
 }

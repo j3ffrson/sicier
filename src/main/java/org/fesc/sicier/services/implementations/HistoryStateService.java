@@ -39,6 +39,7 @@ public class HistoryStateService {
     ){
         HistoryStateEntity historyState= HistoryStateEntity.builder()
                 .requestId(request.getId())
+                .date(LocalDateTime.now())
                 .requestState(state)
                 .description(description)
                 .userId(user.getId())

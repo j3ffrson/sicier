@@ -23,7 +23,7 @@ public class AuditEntity {
     private String ObjectName;
 
     private String operation;
-    private String username;
+    private String user;
     private LocalDateTime date;
 
 

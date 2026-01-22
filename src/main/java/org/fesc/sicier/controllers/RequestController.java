@@ -1,5 +1,6 @@
 package org.fesc.sicier.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.fesc.sicier.services.AuthService;
 import org.fesc.sicier.services.RequestService;
@@ -23,21 +24,21 @@ public class RequestController {
     private final RequestService requestService;
 
     @PostMapping("area")
-    public ResponseEntity<Void> requestToArea(@RequestBody CreateAreaReqRequest areaRequest, Authentication auth) throws BusinessException {
+    public ResponseEntity<Void> requestToArea(@RequestBody @Valid CreateAreaReqRequest areaRequest, Authentication auth) throws BusinessException {
 
         requestService.createReqArea(areaRequest,authService.getCurrentUser(auth));
         return ResponseEntity.ok().build();
 
     }
     @PostMapping("user")
-    public ResponseEntity<Void> requestToArea(@RequestBody CreateUserReqRequest userRequest, Authentication auth) throws BusinessException {
+    public ResponseEntity<Void> requestToArea(@RequestBody @Valid CreateUserReqRequest userRequest, Authentication auth) throws BusinessException {
 
         requestService.createReqUser(userRequest,authService.getCurrentUser(auth));
         return ResponseEntity.ok().build();
 
     }
     @PostMapping("reply/{id}")
-    public ResponseEntity<Void> replyResponse(@PathVariable Long id, @RequestBody RequestResponseDto requestResponseDto,Authentication auth) throws BusinessException, AccessDeniedException {
+    public ResponseEntity<Void> replyResponse(@PathVariable Long id, @RequestBody @Valid RequestResponseDto requestResponseDto,Authentication auth) throws BusinessException, AccessDeniedException {
         requestService.responseSolicited(id,requestResponseDto,authService.getCurrentUser(auth));
         return ResponseEntity.ok().build();
     }
