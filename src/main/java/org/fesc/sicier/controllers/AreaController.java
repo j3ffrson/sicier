@@ -27,11 +27,11 @@ public class AreaController {
 
     }
 
-    @GetMapping("{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<AreaDto> getAreaById(@PathVariable Long id){
         return new ResponseEntity<>(areaService.getAreaById(id),HttpStatus.OK);
     }
-    @GetMapping("{name}")
+    @GetMapping("name/{name}")
     public ResponseEntity<AreaDto> getAreaByName(@PathVariable String name){
         return new ResponseEntity<>(areaService.getAreaByName(name),HttpStatus.OK);
     }
