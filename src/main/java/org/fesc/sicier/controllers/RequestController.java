@@ -10,6 +10,7 @@ import org.fesc.sicier.services.dtos.response.RequestResponseDto;
 import org.fesc.sicier.services.dtos.response.ResponseRequestDto;
 import org.fesc.sicier.services.implementations.BusinessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.nio.file.AccessDeniedException;
 @RestController
 @RequestMapping("/sicier/api/v1/request/")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('FUNC')")
 public class RequestController {
 
     private final AuthService authService;

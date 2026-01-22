@@ -7,12 +7,14 @@ import org.fesc.sicier.services.SendInformService;
 import org.fesc.sicier.services.dtos.request.SendInformRequest;
 import org.fesc.sicier.services.implementations.BusinessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sicier/api/v1/send")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('FUNC')")
 public class SendInformController {
 
     private final SendInformService sendInformService;

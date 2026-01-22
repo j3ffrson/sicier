@@ -140,6 +140,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String email= createUserRequest.institutionalEmail();
         Long phone= createUserRequest.phone();
         Long identifier= createUserRequest.identifier();
+        String areaName= createUserRequest.area();
         String username= createUserRequest.username();
         String password= createUserRequest.password();
         List<String> roleList= createUserRequest.roleRequest().roleList();
@@ -149,6 +150,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .collect(Collectors.toList());
 
         Set<RoleEntity> roleEntities= roleRepository.findRoleEntitiesByRolesNameIn(roles).stream().collect(Collectors.toSet());
+        AreaEntity areaEntity= areaRepository.findByName(areaName).orElse(null);
         UserEntity userUpdate= userRepository.findById(id).orElse(null);
 
         userUpdate.setFirstName(name);
@@ -156,6 +158,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userUpdate.setInstitutionalEmail(email);
         userUpdate.setPhone(phone);
         userUpdate.setIdentifier(identifier);
+        userUpdate.setArea(areaEntity);
         userUpdate.setUsername(username);
         userUpdate.setPassword(passwordEncoder.encode(password));
         userUpdate.setRoles(roleEntities);

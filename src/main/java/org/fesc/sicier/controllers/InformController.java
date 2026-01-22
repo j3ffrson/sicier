@@ -48,12 +48,10 @@ public class InformController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<InformDto> getInformById(@PathVariable Long id){
         return new ResponseEntity<>(informServices.getInformById(id),HttpStatus.OK);
     }
     @GetMapping("{title}")
-    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<InformDto> getInformByTitle(@PathVariable String title){
         return new ResponseEntity<>(informServices.getInformByTitle(title),HttpStatus.OK);
     }
