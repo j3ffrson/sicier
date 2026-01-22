@@ -3,10 +3,7 @@ package org.fesc.sicier.services.implementations;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.fesc.sicier.persistence.entities.DestinationInformEntity;
-import org.fesc.sicier.persistence.entities.InformEntity;
-import org.fesc.sicier.persistence.entities.InformStates;
-import org.fesc.sicier.persistence.entities.AreaEntity;
+import org.fesc.sicier.persistence.entities.*;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.DestinationInformRepository;
@@ -86,7 +83,7 @@ public class SendInformServiceImpl implements SendInformService {
                 .areaDestination(area)
                 .dateReading(LocalDateTime.now())
                 .receptionDate(LocalDateTime.now())
-                .status(StateDestination.RECIBIDO.name())
+                .state(StateDestination.RECIBIDO)
                 .build();
 
         destinationInformRepository.save(destinationInform);
@@ -106,7 +103,7 @@ public class SendInformServiceImpl implements SendInformService {
                 .userDestination(user)
                 .dateReading(LocalDateTime.now())
                 .receptionDate(LocalDateTime.now())
-                .status(StateDestination.RECIBIDO.name())
+                .state(StateDestination.RECIBIDO)
                 .build();
 
         destinationInformRepository.save(destinationInform);
@@ -125,8 +122,8 @@ public class SendInformServiceImpl implements SendInformService {
     public void readInform(Long destinationId, UserEntity user) throws BusinessException {
         DestinationInformEntity destinationInform= destinationInformRepository.findById(destinationId).orElseThrow();
         validateAreaAcces(destinationInform,user);
-        if(destinationInform.getStatus()==StateDestination.RECIBIDO.name()){
-            destinationInform.setStatus(StateDestination.LEIDO.name());
+        if(destinationInform.getState()==StateDestination.RECIBIDO){
+            destinationInform.setState(StateDestination.LEIDO);
         }
     }
 
@@ -136,4 +133,5 @@ public class SendInformServiceImpl implements SendInformService {
             throw new BusinessException("no pertene al area");
         }
     }
+
 }

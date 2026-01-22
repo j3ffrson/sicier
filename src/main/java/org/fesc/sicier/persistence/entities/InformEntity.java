@@ -20,8 +20,7 @@ import java.util.List;
 public class InformEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "inform_seq", sequenceName = "inform_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;

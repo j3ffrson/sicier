@@ -24,7 +24,6 @@ public class AuthController {
         return new ResponseEntity<>(userDetailService.loginUser(loginRequest), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/sign")
     public ResponseEntity<AuthResponse> register(@RequestBody @Valid AuthCreateUserRequest createUserRequest) {
         return new ResponseEntity<>(userDetailService.createUser(createUserRequest), HttpStatus.CREATED);

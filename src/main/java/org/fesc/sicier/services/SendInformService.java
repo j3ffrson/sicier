@@ -3,6 +3,7 @@ package org.fesc.sicier.services;
 import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.AreaEntity;
+import org.fesc.sicier.persistence.entities.RequestStates;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.services.implementations.BusinessException;
 
@@ -16,4 +17,5 @@ public interface SendInformService {
     void createDestinationUser(InformEntity inform, UserEntity user) throws BusinessException;
     void readInform(Long destinationId,UserEntity user) throws BusinessException;
     void validateAreaAcces(DestinationInformEntity destinationInform,UserEntity user) throws BusinessException;
+
 }

@@ -38,7 +38,6 @@ public class AreaController {
     }
 
     @PostMapping("new")
-    @PreAuthorize("hasRole('RECTOR')")
     public ResponseEntity<AreaDto> createArea(@RequestBody @Valid CreateAreaRequest createAreaRequest){
         return new ResponseEntity<>(areaService.createArea(createAreaRequest), HttpStatus.CREATED);
     }

@@ -3,6 +3,7 @@ package org.fesc.sicier.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
+import org.fesc.sicier.services.StateDestination;
 
 import java.time.LocalDateTime;
 
@@ -16,12 +17,11 @@ import java.time.LocalDateTime;
 public class DestinationInformEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "dest_seq", sequenceName = "dest_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StateDestination state;
 
     @Column(name = "reception_date")
     private LocalDateTime receptionDate;

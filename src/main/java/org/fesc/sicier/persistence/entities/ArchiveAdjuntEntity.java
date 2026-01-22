@@ -13,8 +13,7 @@ import lombok.*;
 public class ArchiveAdjuntEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "archive_seq", sequenceName = "archive_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int informId;

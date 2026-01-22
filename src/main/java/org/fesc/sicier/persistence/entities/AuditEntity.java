@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 public class AuditEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "history_changes_seq", sequenceName = "history_changes_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "object_name")

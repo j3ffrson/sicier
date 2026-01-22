@@ -1,13 +1,18 @@
 package org.fesc.sicier.services.implementations;
 
 import lombok.RequiredArgsConstructor;
+import org.fesc.sicier.persistence.entities.DestinationInformEntity;
 import org.fesc.sicier.persistence.entities.InformEntity;
 import org.fesc.sicier.persistence.entities.InformStates;
+import org.fesc.sicier.persistence.entities.RequestStates;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
+import org.fesc.sicier.persistence.repositories.DestinationInformRepository;
 import org.fesc.sicier.persistence.repositories.InformRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
 import org.fesc.sicier.services.InformServices;
+import org.fesc.sicier.services.StateDestination;
 import org.fesc.sicier.services.dtos.request.CreateInformRequest;
+import org.fesc.sicier.services.dtos.response.DestinationInformDto;
 import org.fesc.sicier.services.dtos.response.InformDto;
 import org.fesc.sicier.utils.InformMapper;
 import org.springframework.data.domain.Page;
@@ -16,12 +21,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class InformServicesImpl implements InformServices {
 
     private final InformRepository informRepository;
+    private final DestinationInformRepository destinationInformRepository;
     private final UserRepository userRepository;
     private final InformMapper informMapper;
 
@@ -74,11 +82,23 @@ public class InformServicesImpl implements InformServices {
     }
 
     @Override
-    public InformDto changeGlobalState(Long id,String state) {
-        InformEntity informState= informRepository.findById(id).orElseThrow();
-        informState.setStatus(state);
-        informRepository.save(informState);
-        return informMapper.toInformDto(informState);
+    public List<InformDto> bandejaAreaPorEstado(UserEntity user, StateDestination state) {
+        var list= destinationInformRepository.findByAreaAndEstado(user.getArea().getId(),state);
+        List<InformDto> dtoList= new ArrayList<>();
+        list.forEach(destinationInformEntity -> {
+            dtoList.add(informMapper.toInformDto(destinationInformEntity.getInform()));
+        });
+        return dtoList;
+    }
+
+    @Override
+    public List<InformDto> bandejaUserPorEstado(UserEntity user, StateDestination state) {
+        var list= destinationInformRepository.findByUsuarioAndEstado(user.getId(),state);
+        List<InformDto> dtoList= new ArrayList<>();
+        list.forEach(destinationInformEntity -> {
+            dtoList.add(informMapper.toInformDto(destinationInformEntity.getInform()));
+        });
+        return dtoList;
     }
 
     @Override

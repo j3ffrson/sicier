@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 public class HistoryStateEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "state_seq", sequenceName = "steate_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "inform_id")
