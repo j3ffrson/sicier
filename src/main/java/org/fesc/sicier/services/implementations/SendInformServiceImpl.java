@@ -32,6 +32,7 @@ public class SendInformServiceImpl implements SendInformService {
     private final UserRepository userRepository;
     private final DestinationInformRepository destinationInformRepository;
     private final NotificationService notificationService;
+    private final HistoryStateService historyStateService;
 
     @Override
     public void sendInformArea(Long informId, List<Long> areasDestinationIds, UserEntity user) throws BusinessException{
@@ -47,6 +48,7 @@ public class SendInformServiceImpl implements SendInformService {
             log.info("Informe con id "+informId+" enviado a areas  "+area.getName()+" por "+user.getFirstName());
         }
 
+        historyStateService.registerInformState(inform,InformStates.ENVIADO,user,"Registro de enviao de informe");
 
     }
 
@@ -63,6 +65,7 @@ public class SendInformServiceImpl implements SendInformService {
             log.info("Informe con id "+informId+" enviado a usuarios "+userDest.getFirstName()+" ,");
         }
 
+        historyStateService.registerInformState(inform,InformStates.ENVIADO,user,"Registro de enviao de informe");
 
     }
 

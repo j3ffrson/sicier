@@ -28,6 +28,7 @@ public class RequestServiceImpl implements RequestService {
     private final AreaRepository areaRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;
+    private final HistoryStateService historyStateService;
 
     @Override
     public void validateDestination(RequestEntity request) throws BusinessException {
@@ -67,6 +68,7 @@ public class RequestServiceImpl implements RequestService {
                         user.getFirstName(),
                         request.getCreationDate()
                 ));
+        historyStateService.registerRequestState(request,RequestStates.CREADA,user,"Registro de peticion de areas");
     }
 
     @Override
@@ -93,6 +95,7 @@ public class RequestServiceImpl implements RequestService {
                         user.getFirstName(),
                         request.getCreationDate()
                 ));
+        historyStateService.registerRequestState(request,RequestStates.CREADA,user,"Registro de peticion de usuarios");
     }
 
     @Override
