@@ -31,11 +31,7 @@ public class AuditEntityListener {
         List<String> entityName = Arrays.stream(entity.getClass().getName().split("\\.")).toList();
         String user = "SYSTEM";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            UserEntity userEntity= authService.getCurrentUser(auth);
-            user = String.format("%s %s",userEntity.getFirstName(),userEntity.getLastName());
-        }
-
+        if (auth != null && auth.isAuthenticated()) user= auth.getName();
         history(entityName.getLast(), "INSERT", user);
     }
     @PreUpdate
@@ -43,10 +39,7 @@ public class AuditEntityListener {
         List<String> entityName= Arrays.stream(entity.getClass().getName().split("\\.")).toList();
         String user = "SYSTEM";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            UserEntity userEntity= authService.getCurrentUser(auth);
-            user = String.format("%s %s",userEntity.getFirstName(),userEntity.getLastName());
-        }
+        if (auth != null && auth.isAuthenticated()) user= auth.getName();
         history(entityName.getLast(),"UPDATE",user);
     }
     @PreRemove
@@ -54,10 +47,7 @@ public class AuditEntityListener {
         List<String> entityName= Arrays.stream(entity.getClass().getName().split("\\.")).toList();
         String user = "SYSTEM";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            UserEntity userEntity= authService.getCurrentUser(auth);
-            user = String.format("%s %s",userEntity.getFirstName(),userEntity.getLastName());
-        }
+        if (auth != null && auth.isAuthenticated()) user= auth.getName();
         history(entityName.getLast(),"DELETE",user);
     }
 
