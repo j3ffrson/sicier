@@ -25,7 +25,6 @@ import java.util.List;
 public class AuditEntityListener {
 
     private final AuditRepository auditRepository;
-    private final UserRepository userRepository;
 
     @PrePersist
     void prePersist(Object entity){

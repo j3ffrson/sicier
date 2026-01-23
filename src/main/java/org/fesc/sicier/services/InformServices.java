@@ -1,8 +1,5 @@
 package org.fesc.sicier.services;
 
-import org.fesc.sicier.persistence.entities.DestinationInformEntity;
-import org.fesc.sicier.persistence.entities.InformStates;
-import org.fesc.sicier.persistence.entities.RequestStates;
 import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.services.dtos.request.CreateInformRequest;
 import org.fesc.sicier.services.dtos.response.InformDto;

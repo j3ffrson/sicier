@@ -35,13 +35,13 @@ public class AuditController {
         return ResponseEntity.ok(auditService.getById(id));
     }
 
-    @GetMapping("operation/{operation}")
+    @GetMapping("operation/type/{operation}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AuditResponseDto>> getAuditsByOperation(@PathVariable String operation) {
         return ResponseEntity.ok(auditService.getByOperation(operation));
     }
 
-    @GetMapping("/date/{date}")
+    @GetMapping("/operation/date/{date}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AuditResponseDto>> getAuditsByDate(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
@@ -50,7 +50,7 @@ public class AuditController {
 
     // --- Endpoints para HistoryStateEntity ---
 
-    @GetMapping("/states")
+    @GetMapping("/states/list")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<HistoryStateResponseDto>> getAllHistoryStates() {
         return ResponseEntity.ok(historyStateService.getAll());
