@@ -16,10 +16,10 @@ import java.util.Set;
 @Entity
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
-    private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   Long id;
+
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)

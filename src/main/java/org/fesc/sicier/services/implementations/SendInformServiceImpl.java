@@ -108,7 +108,7 @@ public class SendInformServiceImpl implements SendInformService {
 
         destinationInformRepository.save(destinationInform);
         notificationService.notificateUser(
-                user.getId(),
+                user.getUsername(),
                 new ReceibedInformEvent(
                         inform.getId(),
                         inform.getTitle(),

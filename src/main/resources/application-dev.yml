@@ -10,11 +10,11 @@ spring:
     url: ${DATASOURCE_URL}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 
   security:
     jwt:
       private:
         key: ${JWT_PRIVATE_KEY}
     user:
-      generator: ${JWT_USER_GENERATOR:sicierDev}
+      generator: ${JWT_USER_GENERATOR:sicierDev

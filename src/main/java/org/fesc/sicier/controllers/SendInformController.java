@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sicier/api/v1/send")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('FUNC')")
 public class SendInformController {
 
     private final SendInformService sendInformService;

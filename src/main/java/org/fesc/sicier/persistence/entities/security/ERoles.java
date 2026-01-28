@@ -4,6 +4,7 @@ public enum ERoles {
 
     ADMIN,
     RECTOR,
+    DIRECTOR,
     FUNC,
     LECTOR
 

@@ -8,17 +8,25 @@ import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.RequestRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
+import org.fesc.sicier.services.AuthService;
 import org.fesc.sicier.services.NotificationService;
 import org.fesc.sicier.services.RequestService;
 import org.fesc.sicier.services.dtos.request.CreateAreaReqRequest;
 import org.fesc.sicier.services.dtos.request.CreateUserReqRequest;
 import org.fesc.sicier.services.dtos.response.RequestResponseDto;
+import org.fesc.sicier.services.dtos.response.ResponseRequestDto;
 import org.fesc.sicier.services.dtos.response.events.RequestReceivedEvent;
 import org.fesc.sicier.services.dtos.response.events.RequestResponseEvent;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +37,40 @@ public class RequestServiceImpl implements RequestService {
     private final UserRepository userRepository;
     private final NotificationService notificationService;
     private final HistoryStateService historyStateService;
+    private final AuthService authService;
+
+    @Override
+    public Page<ResponseRequestDto> listRequestByUser(Pageable pageable, Authentication auth) {
+
+        List<RequestEntity> requests= requestRepository.findRequestEntitiesByRequester(authService.getCurrentUser(auth));
+        List<ResponseRequestDto>dtoList= requests.stream().map(req->{
+            ResponseRequestDto dto= new ResponseRequestDto();
+            dto.setTitle(req.getTitle());
+            dto.setDescription(req.getDescription());
+            dto.setState(req.getState().name());
+            dto.setRequester(req.getRequester().getFirstName());
+            dto.setCreationDate(req.getCreationDate());
+            return dto;
+        }).toList();
+
+        return new PageImpl<>(dtoList);
+    }
+
+    @Override
+    public Page<ResponseRequestDto> listRequestByUserDestnation(Pageable pageable, Authentication auth) {
+        List<RequestEntity> requests= requestRepository.findRequestEntitiesByUserDestination(authService.getCurrentUser(auth));
+        List<ResponseRequestDto>dtoList= requests.stream().map(req->{
+            ResponseRequestDto dto= new ResponseRequestDto();
+            dto.setTitle(req.getTitle());
+            dto.setDescription(req.getDescription());
+            dto.setState(req.getState().name());
+            dto.setRequester(req.getRequester().getFirstName());
+            dto.setCreationDate(req.getCreationDate());
+            return dto;
+        }).toList();
+
+        return new PageImpl<>(dtoList);
+    }
 
     @Override
     public void validateDestination(RequestEntity request) throws BusinessException {
@@ -87,7 +129,7 @@ public class RequestServiceImpl implements RequestService {
         validateDestination(request);
         requestRepository.save(request);
 
-        notificationService.notificateUser(request.getUserDestination().getId(),
+        notificationService.notificateUser(request.getUserDestination().getUsername(),
                 new RequestReceivedEvent(
                         request.getId(),
                         request.getTitle(),
@@ -110,7 +152,7 @@ public class RequestServiceImpl implements RequestService {
         request.setState(requestResponseDto.getNewState());
         request.setResponseDate(LocalDateTime.now());
 
-        notificationService.notificateUser(request.getUserDestination().getId(),
+        notificationService.notificateUser(request.getUserDestination().getUsername(),
                 new RequestResponseEvent(
                         request.getId(),
                         request.getState().name(),

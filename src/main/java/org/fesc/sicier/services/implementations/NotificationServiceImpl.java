@@ -20,9 +20,9 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void notificateUser(Long userId, Object payload) {
+    public void notificateUser(String username, Object payload) {
         messagingTemplate.convertAndSend(
-                "/queue/user/"+userId,
+                "/queue/user/"+username,
                 payload
         );
     }
