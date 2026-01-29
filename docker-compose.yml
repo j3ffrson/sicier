@@ -9,7 +9,7 @@ services:
     networks:
       - sicier_net
     volumes:
-      - sicier_data:/var/lib/postgresql/data
+      - sicier_data:/var/lib/postgresql/data/MAJOR/docker
 
   sicier-back:
     image: j3ffer/sicier
