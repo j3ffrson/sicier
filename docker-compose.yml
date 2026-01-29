@@ -1,6 +1,7 @@
 services:
   sicier-bd:
     image: postgres
+    container_name: sicier-bd
     environment:
       - POSTGRES_USER=postgresicier
       - POSTGRES_PASSWORD=s1Ci3rbd
@@ -10,12 +11,15 @@ services:
 
   sicier-back:
     image: j3ffer/sicier
+    container_name: sicier-back
     environment:
       - DATASOURCE_USERNAME=postgresicier
       - DATASOURCE_PASSWORD=s1Ci3rbd
       - DATASOURCE_URL=jdbc:postgresql://sicier-bd:5432/sicier
       - SPRING_PROFILES_ACTIVE=prod
       - JWT_PRIVATE_KEY=59a133e84ff855a20651266f97be4c6c3d263d9201ac5fd73010095a95810e4e
+    ports:
+      - "8080:8080"
     depends_on:
       - sicier-bd
     networks:
@@ -23,12 +27,15 @@ services:
 
   sicier-front:
     image: j3ffer/sicier-front
+    container_name: sicier-front
     environment:
-      - VITE_API_URL=http://sicier-back:8080/sicier/api/v1
+      - API_URL=http://localhost:8080/sicier/api/v1
+    ports:
+      - "5173:80"
     depends_on:
       - sicier-back
-    networks:
-      - sicier_net
 
 networks:
   sicier_net:
+    name: sicier_net
+    driver: bridge

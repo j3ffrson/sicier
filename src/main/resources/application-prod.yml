@@ -14,3 +14,6 @@ spring:
         key: ${JWT_PRIVATE_KEY}
     user:
       generator: ${JWT_USER_GENERATOR:sicierDev}
+server:
+  address: 0.0.0.0
+  port: 8080
