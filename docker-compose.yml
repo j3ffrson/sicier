@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=sicier
     networks:
       - sicier_net
+    volumes:
+      - sicier_data:/var/lib/postgresql/data
 
   sicier-back:
     image: j3ffer/sicier
@@ -39,3 +41,7 @@ networks:
   sicier_net:
     name: sicier_net
     driver: bridge
+
+volumes:
+  sicier_data:
+

@@ -23,6 +23,7 @@ public class CommandInit {
     @Bean
     CommandLineRunner init(PasswordEncoder passwordEncoder, UserRepository userRepository, AreaRepository areaRepository, RoleRepository roleRepository){
         return args -> {
+
             PermissionEntity create= PermissionEntity.builder().name("CREATE").build();
             PermissionEntity read= PermissionEntity.builder().name("READ").build();
             PermissionEntity update= PermissionEntity.builder().name("UPDATE").build();
@@ -65,9 +66,7 @@ public class CommandInit {
                     .name("Rectoria")
                     .active(true)
                     .build();
-
-            areaRepository.saveAll(List.of(dAcademico,cartera,bienestar,rectoria));
-
+            if(areaRepository.findAll().isEmpty()) areaRepository.saveAll(List.of(dAcademico,cartera,bienestar,rectoria));
             UserEntity jeffer= UserEntity.builder()
                     .firstName("Jefferson")
                     .lastName("Chaustre")
@@ -113,9 +112,7 @@ public class CommandInit {
                     .isEnabled(true)
                     .isCredentialsNonExpired(true)
                     .build();
-
-            userRepository.saveAll(List.of(jeffer,brayan,neira));
-
+            if (userRepository.findAll().isEmpty()) userRepository.saveAll(List.of(jeffer,brayan,neira));
         };
     }
 

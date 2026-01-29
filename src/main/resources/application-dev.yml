@@ -10,7 +10,7 @@ spring:
     url: ${DATASOURCE_URL}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
   security:
     jwt:
