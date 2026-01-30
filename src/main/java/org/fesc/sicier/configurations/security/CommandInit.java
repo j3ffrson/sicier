@@ -34,7 +34,7 @@ public class CommandInit {
                     .listPermission(Set.of(create,read,update,delete))
                     .build();
             RoleEntity director= RoleEntity.builder()
-                    .rolesName(ERoles.RECTOR)
+                    .rolesName(ERoles.DIRECTOR)
                     .listPermission(Set.of(create,read,update))
                     .build();
             RoleEntity rector= RoleEntity.builder()
@@ -66,7 +66,7 @@ public class CommandInit {
                     .name("Rectoria")
                     .active(true)
                     .build();
-            if(areaRepository.findAll().isEmpty()) areaRepository.saveAll(List.of(dAcademico,cartera,bienestar,rectoria));
+            if (areaRepository.findAll().isEmpty()) areaRepository.saveAll(List.of(dAcademico,cartera,bienestar,rectoria));
             UserEntity jeffer= UserEntity.builder()
                     .firstName("Jefferson")
                     .lastName("Chaustre")

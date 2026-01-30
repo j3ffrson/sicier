@@ -12,9 +12,9 @@ public class NotificationServiceImpl implements NotificationService {
     private final SimpMessagingTemplate messagingTemplate;
 
     @Override
-    public void notificateArea(Long areaId, Object payload) {
+    public void notificateArea(String area, Object payload) {
         messagingTemplate.convertAndSend(
-                "/topic/area/"+areaId,
+                "/topic/area/"+area,
                 payload
         );
     }

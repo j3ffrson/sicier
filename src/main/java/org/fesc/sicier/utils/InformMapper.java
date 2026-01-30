@@ -18,11 +18,10 @@ import java.time.format.DateTimeFormatter;
 public interface InformMapper {
 
     InformDto toInformDto(InformEntity informEntity);
-    InformEntity toInformEntity(InformDto informDto);
-    AreaDto toAreaDto(AreaEntity areaEntity);
     DestinationInformDto toDestinationInformDto(DestinationInformEntity destinationInformEntity);
     UserDto toUserDto(UserEntity userEntity);
     InformEntity requestToInformEntity(CreateInformRequest createInformRequest);
+    AreaDto toAreaDto(AreaEntity areaEntity);
 
     default String mapCreationDate(LocalDateTime creationDate){
         return creationDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));

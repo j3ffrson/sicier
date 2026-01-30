@@ -102,7 +102,7 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.save(request);
 
         notificationService.notificateArea(
-                request.getAreaDestination().getId(),
+                request.getAreaDestination().getName(),
                 new RequestReceivedEvent(
                         request.getId(),
                         request.getTitle(),

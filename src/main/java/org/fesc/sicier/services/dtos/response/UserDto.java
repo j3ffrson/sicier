@@ -12,6 +12,6 @@ public class UserDto {
     private Long identifier;
     private String username;
     private String institutionalEmail;
-    private AreaDto areaEntities;
+    private AreaDto area;
 
 }

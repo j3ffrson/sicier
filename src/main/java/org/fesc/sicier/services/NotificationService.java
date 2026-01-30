@@ -2,7 +2,7 @@ package org.fesc.sicier.services;
 
 public interface NotificationService {
 
-    void notificateArea(Long areaId,Object payload);
+    void notificateArea(String area,Object payload);
     void notificateUser(String username,Object payload);
 
 }

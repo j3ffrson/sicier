@@ -9,9 +9,12 @@ import org.fesc.sicier.persistence.entities.security.UserEntity;
 import org.fesc.sicier.persistence.repositories.AreaRepository;
 import org.fesc.sicier.persistence.repositories.RoleRepository;
 import org.fesc.sicier.persistence.repositories.UserRepository;
+import org.fesc.sicier.services.AuthService;
 import org.fesc.sicier.services.auth.AuthCreateUserRequest;
 import org.fesc.sicier.services.auth.AuthLoginRequest;
 import org.fesc.sicier.services.auth.AuthResponse;
+import org.fesc.sicier.services.dtos.response.UserDto;
+import org.fesc.sicier.utils.InformMapper;
 import org.fesc.sicier.utils.JwtUtil;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,6 +41,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private final RoleRepository roleRepository;
     private final AreaRepository areaRepository;
     private final PasswordEncoder passwordEncoder;
+    private final InformMapper informMapper;
+    private final AuthService authService;
     private final JwtUtil jwtUtil;
 
     @Override
@@ -65,9 +70,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Authentication authentication= this.authenticate(username,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String acccesToken= jwtUtil.generateToken(authentication);
-
-        AuthResponse authResponse= new AuthResponse(username,"user login",acccesToken,true);
-        return authResponse;
+        List<String> roles= authentication.getAuthorities().stream().map(Object::toString).toList();
+        return new AuthResponse(
+                username,
+                "user login",
+                acccesToken,
+                roles.stream().filter(role->role.startsWith("ROLE_")).toList().stream().map(role->role.replace("ROLE_","")).toList(),
+                true);
 
 
     }
@@ -130,9 +139,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         Authentication authentication= new UsernamePasswordAuthenticationToken(usuarioEntity,null,authorityList);
         String accessToken= jwtUtil.generateToken(authentication);
-        return new AuthResponse(username,"user created",accessToken,true);
+        return new AuthResponse(username,"user created",accessToken,roleList,true);
 
     }
+
     public AuthResponse updateUser(@Valid AuthCreateUserRequest createUserRequest,long id){
 
         String name= createUserRequest.firstName();
@@ -175,9 +185,18 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         Authentication authentication= new UsernamePasswordAuthenticationToken(usuarioEntity,null,authorityList);
         String accessToken= jwtUtil.generateToken(authentication);
-        return new AuthResponse(username,"user update",accessToken,true);
+        return new AuthResponse(username,"user update",accessToken,roleList,true);
 
     }
 
+    public List<UserDto> findAllUsers(){
+
+        List<UserEntity> users= userRepository.findAll();
+        return users.stream().map(informMapper::toUserDto).toList();
+
+    }
+    public UserDto findCurrentUser(Authentication auth){
+        return informMapper.toUserDto(authService.getCurrentUser(auth));
+    }
 
 }
