@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HistoryStateRepository extends JpaRepository<HistoryStateEntity, Long> {
+
     List<HistoryStateEntity> findByInformId(Long informId);
+    List<HistoryStateEntity> findBy(Long informId);
     List<HistoryStateEntity> findByRequestId(Long requestId);
     List<HistoryStateEntity> findByState(InformStates state);
     List<HistoryStateEntity> findByRequestState(RequestStates requestState);

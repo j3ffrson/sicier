@@ -45,6 +45,11 @@ public class AuthController {
     public ResponseEntity<List<UserDto>> getUsersList(){
         return new ResponseEntity<>(userDetailService.findAllUsers(),HttpStatus.OK);
     }
+    @GetMapping("user/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
+        return new ResponseEntity<>(userDetailService.findUserById(id),HttpStatus.OK);
+    }
     @GetMapping("find/user/loged")
     public ResponseEntity<UserDto> getUserLogin(){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();

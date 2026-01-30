@@ -198,5 +198,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDto findCurrentUser(Authentication auth){
         return informMapper.toUserDto(authService.getCurrentUser(auth));
     }
-
+    public UserDto findUserById(Long id){
+        return informMapper.toUserDto(userRepository.findById(id).orElseThrow());
+    }
 }

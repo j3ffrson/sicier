@@ -57,6 +57,7 @@ public class InformController {
     public ResponseEntity<List<InformDto>> getInformByStateAndArea(@RequestParam StateDestination state, Authentication auth){
         return new ResponseEntity<>(informServices.bandejaAreaPorEstado(authService.getCurrentUser(auth),state),HttpStatus.OK);
     }
+
     @GetMapping("user")
     public ResponseEntity<List<InformDto>> getInformByStateAndUser(@RequestParam StateDestination state, Authentication auth){
         return new ResponseEntity<>(informServices.bandejaUserPorEstado(authService.getCurrentUser(auth),state),HttpStatus.OK);
